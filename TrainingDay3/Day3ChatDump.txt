@@ -1,0 +1,501 @@
+Messages addressed to "meeting group chat" will also appear in the meeting group chat in Team Chat
+Due to the large number of participants in this meeting, system messages for those who joined or left have been disabled
+
+VISHWA 10:18 AM
+from flask import Flask
+
+app=Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World"
+app.run()
+pip install flask
+
+VISHWA 10:26 AM
+from flask import Flask
+
+app=Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World"
+@app.route("/welcome")
+def welcome():
+    return "Welcome to the world of python"
+app.run()
+from flask import Flask
+
+app=Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World"
+@app.route("/welcome/<user>")#Path Params
+def welcome(user):
+    return "Welcome " + user+" to the world of python"
+app.run()
+http://127.0.0.1:5000/welcome/Raj
+
+VISHWA 10:36 AM
+from flask import Flask
+
+app=Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World"
+@app.route("/welcome/<user>")#Path Params
+def welcome(user):
+    return "Welcome " + user+" to the world of python"
+@app.route("/add/<a>/<b>")
+def add(a,b):
+    return str(int(a)+int(b))
+    
+app.run()
+
+VISHWA 10:43 AM
+
+VISHWA 10:49 AM
+http://127.0.0.1:5000/queryparam?user=Vishwa
+from flask import Flask,request
+
+app=Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World"
+@app.route("/welcome/<user>")#Path Params
+def welcome(user):
+    return "Welcome " + user+" to the world of python"
+@app.route("/add/<int:a>/<int:b>")
+def add(a,b):
+    return str(a + b)
+@app.route("/queryparam")
+def query():
+    return "welcome "+request.args.get("user")
+    
+app.run()
+
+Jain, Ronak 10:57 AM
+Deepak, please import request
+
+H C, Deepak 10:56 AM
+Anyone getting following error NameError: name 'request' is not defined
+
+You 10:57 AM
+Can you paste your code?
+
+H C, Deepak 10:57 AM
+from flask import Flask
+
+app=Flask(__name__)
+@app.route("/")
+def hello():
+    return "Hello World"
+@app.route("/welcome/<user>") # Path parameter
+def welcome(user):
+    return "Welcome, " + user + " to the world of python!"
+@app.route("/add/<int:n1>/<int:n2>")
+def add(n1, n2):
+    return str(n1+n2)
+@app.route("/query")
+def query():
+    return "Welcome "+ request.args.get("user")
+
+app.run()
+
+Katare, Chandra 10:57 AM
+
+Katare, Chandra 10:57 AM
+
+VISHWA 11:00 AM
+from flask import Flask,request
+
+app=Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World"
+@app.route("/welcome/<user>")#Path Params
+def welcome(user):
+    return "Welcome " + user+" to the world of python"
+@app.route("/add/<int:a>/<int:b>")
+def add(a,b):
+    return str(a + b)
+@app.route("/queryparam")
+def query():
+    if request.args.get("user") == None:
+        return "Welcome"
+    else:
+        return "welcome "+request.args.get("user")
+    
+app.run()
+
+VISHWA 11:06 AM
+class Student:
+    def __init__(self,name,rollNo):
+        self.name=name
+        self.rollNo=rollNo
+
+    def to_dict(self):
+        return {"name":self.name,"rollNo":self.rollNo}
+    def __str__(self):
+        return "name is {} rollNo is {}".format(self.name,self.rollNo)
+from flask import Flask,request,jsonify
+
+app=Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World"
+@app.route("/welcome/<user>")#Path Params
+def welcome(user):
+    return "Welcome " + user+" to the world of python"
+@app.route("/add/<int:a>/<int:b>")
+def add(a,b):
+    return str(a + b)
+@app.route("/queryparam")
+def query():
+    if request.args.get("user") == None:
+        return "Welcome"
+    else:
+        return "welcome "+request.args.get("user")
+@app.route("/student")
+def studentData():
+    s1=Student("Raj",1)
+    return jsonify(s1.to_dict())
+
+    
+app.run()
+
+VISHWA 11:17 AM
+from flask import Flask,request,jsonify
+
+app=Flask(__name__)
+
+@app.route("/")
+def hello():
+    return "Hello World"
+@app.route("/welcome/<user>")#Path Params
+def welcome(user):
+    return "Welcome " + user+" to the world of python"
+@app.route("/add/<int:a>/<int:b>")
+def add(a,b):
+    return str(a + b)
+@app.route("/queryparam")
+def query():
+    if request.args.get("user") == None:
+        return "Welcome"
+    else:
+        return "welcome "+request.args.get("user")
+@app.route("/student")
+def studentData():
+    s1=Student("Raj",1)
+    return jsonify(s1.to_dict())
+dataLst=[]
+@app.route("/postdata",methods=["POST"])
+def postData():
+    body=request.get_json()
+    dataLst.append(body)
+    return jsonify(dataLst)
+    
+app.run()
+
+Jain, Ronak 11:20 AM
+{ "id":2,
+"name":"ravi" }
+
+VISHWA 11:20 AM
+{"id":2,"name":"Ravi"}
+pip install flask
+
+VISHWA 11:27 AM
+app.run(use_reloader=True)
+
+VISHWA 11:41 AM
+from flask import Flask,request,jsonify
+
+app=Flask(__name__)
+#GET --fetch data
+#Post --create
+#PUT ---update
+#DELETE--delete
+empData =[]
+empIds=[]
+
+@app.route("/addemp",methods=["POST"])
+def addEmp():
+    emptoadd = request.get_json()
+    empData.append(dict(emptoadd))
+    empIds.append(emptoadd.get("empId"))
+    return jsonify({"success":True})
+@app.route("/updateemp",methods=["PUT"])
+def updateemp():
+    emptoupdate = request.get_json()
+    empId=emptoupdate.get("empId")
+    if empId in empIds:
+        empData.update(emptoupdate)#need to update
+        return jsonify({"success":True})
+    else:
+        return jsonify({"success":False,"message":"Emp does not exist"})
+@app.route("/listemp")
+def listEmp():
+    return jsonify(empData)
+
+    
+app.run()
+{"empId":2,"empName":"Raj"}
+
+VISHWA 11:48 AM
+15 mins
+12.05
+
+VISHWA 12:15 PM
+from flask import Flask,request,jsonify,Response
+
+app=Flask(__name__)
+@app.route("/xml")
+def xmlData():
+    return Response("<users><user>Vishwa</user></users>",mimetype="text/xml")
+app.run()
+
+VISHWA 12:20 PM
+from flask import Flask,request,jsonify,Response
+import xmltodict
+app=Flask(__name__)
+@app.route("/xml")
+def xmlData():
+    return Response("<users><user>Vishwa</user></users>",mimetype="text/xml")
+@app.route("/xmlrequest",methods=["POST"])
+def xmlRequest():
+    data=request.get_data()
+    return xmltodict.parse(data)
+    
+app.run()
+https://flask-restful.readthedocs.io/en/latest/
+pip install xmltodict
+
+VISHWA 12:31 PM
+https://colab.research.google.com/drive/1XLD-StsOJKqRbkw_SBbEid0uzgIZXSc_?usp=sharing
+pip install pandas
+
+VISHWA 12:38 PM
+pandas---3 rd party library
+
+1) ETL ---Extraction transformation loading
+pandas ---read data from various sources
+transform data
+save 
+
+Excel sheet
+pandas 
+
+Column --Series
+Collection of series ---data frame
+import pandas as pd
+s1 =pd.Series([1,2,3])
+s2=pd.Series([10,22,33])
+df=pd.DataFrame({'col1':s1,'col2':s2})
+
+You 12:41 PM
+df
+
+VISHWA 12:47 PM
+https://gist.githubusercontent.com/netj/8836201/raw/6f9306ad21398ea43cba4f7d537619d0e07d5ae3/iris.csv
+iris=pd.read_csv("https://gist.githubusercontent.com/netj/8836201/raw/6f9306ad21398ea43cba4f7d537619d0e07d5ae3/iris.csv")
+iris.shape
+
+VISHWA 1:01 PM
+iris['sepal.length']
+iris[['sepal.length','sepal.width']]
+
+VISHWA 1:08 PM
+iris.describe()
+iris[['sepal.length','sepal.width']].sum()
+iris[iris['sepal.length']>7]
+
+VISHWA 1:13 PM
+iris[(iris['sepal.length']>7) & (iris['petal.length']> 3.5)]
+iris[iris['variety']=='Versicolor']
+
+VISHWA 1:26 PM
+iris['sl'] = iris['sepal.length']+iris['petal.length']
+iris
+
+VISHWA 2:34 PM
+iris.loc[iris['variety']=='Setosa','v']="S"
+iris.loc[iris['variety']=='Versicolor','v']="Ve"
+iris.loc[iris['variety']=='Virginica','v']="Vi"
+iris['variety'].unique()
+iris['variety'].value_counts()
+
+VISHWA 2:41 PM
+grouped = iris.groupby('variety')
+grouped.agg({"sepal.length":["min","max","sum"],"petal.length":["mean"]})
+iris.to_csv("iris_new.csv")
+iris.to_excel("iris_new.xlsx")
+iris.to_json("iris_new.json")
+iris.to_html("iris_new.html")
+
+Chauhan, Aditi 2:49 PM
+pip install openpyxl
+
+Singh, Ashutosh 2:51 PM
+sounds good
+
+VISHWA 2:57 PM
+Joins ----> pd.merge(df1,df2,left_on=[],right_on=[], how="inner")
+usa=pd.read_html("https://en.wikipedia.org/wiki/United_States")
+len(usa)
+usa[0]
+Combine multiple dataframe
+pd.append(df1,df2)---rowwise
+pd.append(df1,df2,axis=1) -column wise
+
+VISHWA 3:03 PM
+https://github.com/vishurudratrainer/notebooks/blob/main/jpmcsto/regularexpression.ipynb
+
+VISHWA 3:47 PM
+pip install transformers
+from transformers import pipeline
+qa =pipeline("question-answering")
+question="What is the capital of India"
+context="India is a big country in Asia. Capital is situated in North of India with name Delhi"
+answer=qa(question=question,context=context)
+answer
+
+Chauhan, Aditi 3:51 PM
+RuntimeError: At least one of TensorFlow 2.0 or PyTorch should be installed. To install TensorFlow 2.0, read the instructions at https://www.tensorflow.org/install/ To install PyTorch, read the instructions at https://pytorch.org/.
+
+VISHWA 4:03 PM
+Data Science
+
+input  1  2   3
+output 10 20 30
+
+output=10 * input
+
+
+many inputs ---input--fraction
+Statitics =====> make relationship input/output ---probability
+
+Machine learning ---> data science solve real world problem
+
+1) Supervised
+--History 
+------------Classification ---categorial ---> category [Pass,Fail]
+------------Regression----output is continous---electricity bill
+
+
+2)Unsupervised----> Clustering
+     Netflix ----> movie types ---> drama, action, horror ,comedy
+
+  p1--drama --->p1
+  p2---action comedy----> action--comedy
+v
+
+Artifical intelligence 
+
+
+
+1) sklearn ---> powerfull ----> many steps machine learning
+
+Steps: machine learning
+
+1) get the data--->
+2) Clean the data 
+3)convert non numerical 
+4) divide input and output
+5) models ----
+6) test model 
+ inp [1,2,3]
+  actual[10,20,30]
+  pred[9,20,30]
+
+test model detect success rate
+
+
+     actual -   ---["IN","UK","USA","UK"]
+                   ["IN","IN","USA","UK"]
+
+Classification confusion matrix
+                       in uk usa
+                 in     1  0  0
+                 uk     1  1  0
+                 usa    0  0  1
+
+
+Regression   12.50,11.40
+             13     12
+
+Mean squared
+
+sklearn ---> train/test
+------non --numerical ---LabelEncoder
+model----decision tree, KNN,Naive Bayes, random forest, gradient,ada,svm
+metrics
+
+
+Spark----->distributed --->work on multiple --->many parts ,pyspark
+
+Dask
+Language processing
+
+contextual transformer,nltk
+
+---
+
+Jain, Ronak 4:04 PM
+https://getstream.io/blog/multiagent-ai-frameworks/
+
+VISHWA 4:06 PM
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+nltk.download('all')
+vader = SentimentIntensityAnalyzer()
+sample ="Very bad"
+vader.polarity_scores(sample)
+
+VISHWA 4:15 PM
+https://www.crummy.com/software/BeautifulSoup/bs4/doc/
+https://github.com/vishurudratrainer/notebooks/blob/main/jpmcsto/scraping.ipynb
+
+VISHWA 4:25 PM
+15 mins
+
+H C, Deepak 4:26 PM
+For image/video analysis what lib we use example pytorch etc. can you explain bit about those please.
+
+H C, Deepak 4:44 PM
+ok
+Yep
+
+VISHWA 4:46 PM
+OpenCV
+Scikit-Image
+SimpleTk
+Mahotas
+Pgmageclick
+Image processing lib
+
+OpenCV
+Scikit-Image
+SimpleTk
+Mahotas
+Pgmageclick
+https://pypi.org/project/moviepy/
+
+VISHWA 4:56 PM
+https://github.com/vishurudratrainer/notebooks/blob/main/jpmcsto/scraping.ipynb
+
+Jain, Ronak 5:08 PM
+Day 2 - https://colab.research.google.com/drive/1y-_9R33fcvVzOrLfx-c6MuXXEsQVJCKF?usp=sharing#scrollTo=ER5frKRZhnPo
+Day 1 - https://colab.research.google.com/drive/1fNmy2OMS6CO-g6_xXXGWoOn5XGSN97T8?usp=sharing#scrollTo=0XwWnkF481AX
+Day 3  - https://colab.research.google.com/drive/1XLD-StsOJKqRbkw_SBbEid0uzgIZXSc_?usp=sharing#scrollTo=jbKWhHmqWmU4
+
+
+
+VISHWA:
+vishurudra@gmail.com
+8104203164

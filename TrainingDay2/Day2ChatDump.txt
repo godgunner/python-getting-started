@@ -1,0 +1,693 @@
+Today
+
+Jain, Ronak 10:11 AM
+@VISHWA could you use shared location for this - https://colab.research.google.com/drive/1fNmy2OMS6CO-g6_xXXGWoOn5XGSN97T8?usp=sharing#scrollTo=SwNZ_-U58wY1
+
+VISHWA 10:14 AM
+class SampleEg:
+    #What functions are created within a class will always have self as first argument
+    #In python properties are created using constructor
+    def __init__(self,p1,p2):
+        self.p1=p1
+        self.p2=p2
+    def display(self):
+        print("p1 {} p2 {}".format(self.p1,self.p2))
+
+Shaik, Shiraj 10:16 AM
+SampleEg:
+
+Jain, Ronak 10:18 AM
+s1= SampleEg(10,20)
+s1.display()
+
+VISHWA 10:19 AM
+s1 = SampleEg(10,12)
+s1.display()
+https://colab.research.google.com/drive/1y-_9R33fcvVzOrLfx-c6MuXXEsQVJCKF?usp=sharing
+class Student:
+  def __init__(self,name,age,rollNo):
+    self.name=name
+    self.age=age
+    self.rollNo=rollNo
+  def display(self):
+    print("name {} age {} rollNo {}".format(self.name,self.age,self.rollNo))
+s1 = Student("Raj",18,1)
+s1.display()
+
+VISHWA 10:33 AM
+class Calculator:
+    def __init__(self,n1,n2):
+        self.n1=n1
+        self.n2=n2
+        self.res=0
+    def add(self):
+        self.res=self.n1+self.n2
+    def sub(self):
+        self.res=self.n1-self.n2
+    def mul(self):
+        self.res=self.n1*self.n2
+    def div(self):
+        self.res=self.n1/self.n2
+c1=Calculator(10,2)
+c1.add()
+print(c1.res)
+c1.sub()
+print(c1.res)
+
+Mishra, Gunendra 10:35 AM
+c1=Calculator(10,2)
+c1.add()
+print(c1.res)
+c1.sub()
+print(c1.res)
+c1.mul()
+print(c1.res)
+c1.div()
+print(c1.res)
+
+VISHWA 10:40 AM
+class DefaultValue:
+  def __init__(self,n1,n2=0):
+    self.n1=n1
+    self.n2=n2
+  def display(self):
+    print("n1 {} n2 {}".format(self.n1,self.n2))
+d1 = DefaultValue(22,33)
+d1.display()
+d2 = DefaultValue(33)
+d2.display()
+
+VISHWA 10:49 AM
+class Parent1:
+  def __init__(self,p1):
+    self.p1=p1
+  def displayP1(self):
+    print("p1 from Parent1 is",self.p1)
+class Child1(Parent1):#Child1 extends from Parent1
+  def __init__(self,p1,p2):
+    Parent1.__init__(self,p1)#Calling base class constructor
+    self.p2=p2
+  def displayP2(self):
+    print("p2 is",self.p2)
+c1=Child1(10,20)
+c1.displayP1()
+
+VISHWA 10:55 AM
+class Child2(Parent1):#Child1 extends from Parent1
+  def __init__(self,p1,p2):
+    super().__init__(p1)
+    self.p2=p2
+  def displayP2(self):
+    print("p2 is",self.p2)
+c2=Child2(10,20)
+c2.displayP1()
+
+VISHWA 11:02 AM
+class Parent2:
+  def __init__(self,p1):
+    self.p1=p1
+  def display(self):
+    print("p1 from Parent2 is",self.p1)
+class Parent3:
+  def __init__(self,p2):
+    self.p2=p2
+  def display(self):
+    print("p2 from Parent3 is",self.p2)
+class Child3(Parent2,Parent3):#Ambiguity is resolved by sequence
+  def __init__(self,p1,p2):
+    Parent2.__init__(self,p1)
+    Parent3.__init__(self,p2)
+c3 = Child3(10,12)
+c3.display()
+
+VISHWA 11:08 AM
+class Child4(Parent3,Parent2):#Ambiguity is resolved by sequence
+  def __init__(self,p1,p2):
+    Parent2.__init__(self,p1)
+    Parent3.__init__(self,p2)
+c4 = Child4(10,12)
+c4.display()
+
+VISHWA 11:14 AM
+class DynamicEg:
+  def __init__(self,p1):
+    self.p1=p1
+d1 = DynamicEg(22)
+d1.p1
+d1.p2=34
+d1.p2
+class StaticEg:
+  __slots__=["p1"]
+  def __init__(self,p1):
+    self.p1=p1
+s1=StaticEg(22)
+s1.p1
+s1.p2=24
+
+VISHWA 11:24 AM
+class PrivateEg:
+  def __init__(self,p1):
+    self.__p1=p1 #private variable
+  def __display(self):
+    print("p1 is",self.__p1)
+p1 = PrivateEg(10)
+p1._PrivateEg__display()
+p1._PrivateEg__p1
+
+VISHWA 11:31 AM
+class SetterGetter:
+  def __init__(self):
+    self.__p1=0
+  @property
+  def p1(self):
+    print("Inside getter")
+    return self.__p1
+  @p1.setter#Decorators
+  def p1(self,p1):
+    print("Inside setter")
+    self.__p1=p1
+sg1=SetterGetter()
+sg1.p1=32
+sg1.p1
+15 min break
+
+VISHWA 11:59 AM
+https://www.programiz.com/python-programming/operator-overloading
+class Complex:
+  def __init__(self,real,img) :
+    self.real=real
+    self.img=img
+  def add(self,c2):
+    real = self.real+c2.real
+    img = self.img+c2.img
+    return Complex(real,img)
+  def __add__(self,c2):#+Operator overloading
+    return self.add(c2)
+  def display(self):
+    print("{} + {}i".format(self.real,self.img))
+c1 = Complex(2,3)
+c2 = Complex(4,5)
+c3 = c1.add(c2)
+c3.display()
+c4 = c1 + c2
+c4.display()
+
+VISHWA 12:06 PM
+class Point:
+  def __init__(self,x,y):
+    self.x = x
+    self.y = y
+  def __lt__(self,p1):
+    selftotal=self.x*self.x+self.y*self.y
+    p1total = p1.x*p1.x+p1.y*p1.y
+    return selftotal<p1total
+  def __le__(self,p1):
+    selftotal=self.x*self.x+self.y*self.y
+    p1total = p1.x*p1.x+p1.y*p1.y
+    return selftotal<=p1total  
+  def __gt__(self,p1):
+    selftotal=self.x*self.x+self.y*self.y
+    p1total = p1.x*p1.x+p1.y*p1.y
+    return selftotal>p1total
+  def __ge__(self,p1):
+    selftotal=self.x*self.x+self.y*self.y
+    p1total = p1.x*p1.x+p1.y*p1.y
+    return selftotal>=p1total
+  def __eq__(self,p1):
+    selftotal=self.x*self.x+self.y*self.y
+    p1total = p1.x*p1.x+p1.y*p1.y
+    return selftotal==p1total
+p1= Point(10,2)
+p2 =Point(1,6)
+print(p1<p2)
+print(p1>p2)
+print(p1==p2)
+print(p1>=p2)
+print(p1<=p2)
+
+VISHWA 12:13 PM
+class StringfiedClass:
+  def __init__(self,p1):
+    self.p1=p1
+  def __str__(self):
+    return "Stringfied value is {}".format(self.p1)
+s1= StringfiedClass(10)
+print(s1)
+
+VISHWA 12:19 PM
+class CounterEg:
+  counter=0#Class level variable
+  def __init__(self,p1):
+    self.p1=p1
+    CounterEg.counter=CounterEg.counter+1
+c1 = CounterEg(10)
+c2 = CounterEg(12)
+CounterEg.counter
+
+VISHWA 12:26 PM
+class CalculatorUtil:
+  @staticmethod
+  def add(a,b):
+    return a+b
+  @staticmethod
+  def sub(a,b):
+    return a-b 
+  @staticmethod
+  def mul(a,b):
+     return a*b
+  @staticmethod
+  def div(a,b):
+    return a/b
+
+Mishra, Gunendra 12:28 PM
+CalculatorUtil.sub(22,33)
+CalculatorUtil.mul(22,33)
+CalculatorUtil.div(22,33)
+
+H C, Deepak 12:33 PM
+class CalculateSimpleIntrest:
+    @staticmethod
+    def simpleIntrest(p,r,t):
+        return (p*r*t)/100
+    
+si = CalculateSimpleIntrest.simpleIntrest(100, 30, 2)
+print(si)
+
+Mishra, Gunendra 12:34 PM
+def calculate_simple_interest(principal, rate, time):
+    simple_interest = (principal * rate * time) / 100
+    return simple_interest
+calculate_simple_interest(10,20,3)
+
+VISHWA 12:39 PM
+class Wheel:
+  def __init__(self,material):
+    self.material=material
+  def display(self):
+    print("Material is ",self.material)
+class Vehicle:
+  def __init__(self,name,type):
+    self.name=name
+    self.type=type
+    self.wheel=Wheel("rubber")
+v1 = Vehicle("truck","heavy")
+v1.wheel.display()
+
+VISHWA 12:47 PM
+class FunctionOverloading:
+  def hello(self,name=""):
+    print("Hello",name)
+f1 = FunctionOverloading()
+f1.hello()
+f1.hello("Raj")
+class FunctionOverloading:
+  def hello(self,name=""):
+    if name == "":
+      print("Hello from us")
+    else:
+      print("Hello",name)
+f1 = FunctionOverloading()
+f1.hello()
+f1.hello("Raj")
+
+VISHWA 12:57 PM
+def outer():
+  print("Within outer function")
+  def inner():
+    print("Within inner")
+  inner()
+outer()
+def outer():
+  print("Within outer function")
+  def inner():
+    print("Within inner")
+  return inner#Function can be returned as a result
+res =outer()
+res()
+Messages addressed to "meeting group chat" will also appear in the meeting group chat in Team Chat
+Due to the large number of participants in this meeting, system messages for those who joined or left have been disabled
+
+VISHWA 1:05 PM
+def outer(param):
+  print("Within outer")
+  def inner():
+    print("Before calling passed function")
+    param()
+    print("After calling passed function")
+  return inner
+def hello():
+  print("Hello from hello")
+res = outer(hello)
+res()4
+
+VISHWA 1:12 PM
+@outer
+def hello2():
+  print("Hello from hello2")
+hello2()
+@outer#When we write @outer, it is calling outer function with hello2 as an argument
+def hello2():#any call to hello2 will now call inner function defined within outer
+  print("Hello from hello2")
+
+Katare, Chandra 1:17 PM
+res = hello2
+res()
+
+Katare, Chandra 1:17 PM
+try this
+
+VISHWA 2:33 PM
+#Python 3.5 ----> type hinting
+def add(a:int,b:int)-> int:
+  return a+b
+res = add(22,33)
+print(res)
+from collections import namedtuple
+#using named tuple u can create classes on fly
+CustomPoint=namedtuple("CustomPoint","x y")
+c1 = CustomPoint(10,15)
+print(c1.x)
+print(c1.y)
+
+VISHWA 2:43 PM
+class Emp:
+  def __init__(self,empId,empName):
+    self.empId=empId
+    self.empName=empName
+  def __str__(self) -> str:
+    return "emp ID {} emp name {}".format(self.empId,self.empName)
+e1 = Emp(10,"Raj")
+print(e1)
+from dataclasses import dataclass
+@dataclass
+class Emp:
+  empId:int
+  empName:str
+e1 = Emp(10,"Raj")
+print(e1)
+
+VISHWA 2:54 PM
+from abc import ABC,abstractmethod
+
+class Animal(ABC):
+  @property
+  @abstractmethod
+  def name(self):
+    pass
+  @abstractmethod
+  def  eat(self):
+    pass
+  def walk(self):
+    print("Animal walks")
+class Cow(Animal):
+  @property
+  def name(self):
+    return "Cow"
+  def eat(self):
+    print("Cow eats grass")
+c1=Cow()
+c1.eat()
+c1.walk()
+print(c1.name)
+a1=Animal()
+
+VISHWA 3:02 PM
+from enum import Enum,unique
+@unique
+class Country(Enum):
+  IN=1
+  US=2
+  UK=3
+  BH=20
+india =Country.IN
+print(india)
+pip install multipledispatch
+
+VISHWA 3:07 PM
+from multipledispatch import dispatch
+class Calculator:
+  @dispatch(int,int)
+  def add(self,a,b):
+    return a+b
+  @dispatch(int,int,int)
+  def add(self,a,b,c):
+    return a+b+c
+c1=Calculator()
+print(c1.add(22,33))
+print(c1.add(22,33,44))
+pip install multipledispatch
+
+VISHWA 3:14 PM
+pip install python-interface
+from interface import implements, Interface
+class MyInterface(Interface):
+  def m1(self):
+    pass
+  def m2(self):
+    pass
+class MyClass(implements(MyInterface)):
+  def m1(self):
+    print("m1 from MyClass")
+  def m2(self):
+    print("m2 from MyClass")
+
+VISHWA 3:24 PM
+import logging
+import sys
+logger=logging.getLogger()
+stream_handler=logging.StreamHandler(sys.stdout)
+stream_handler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s"))
+logger.addHandler(stream_handler)
+logger.setLevel(logging.INFO)
+logger.info("This is for tet")
+def add(a,b):
+  return a+b
+add_lambda = lambda a,b:a+b
+print(add(22,33))
+print(add_lambda(22,33))
+
+VISHWA 3:32 PM
+try:
+  n1 = int(input("Enter a number"))
+  n2 = int(input("Enter a number"))
+  res = n1/n2
+  print(res)
+except ValueError as ve:
+  print("Value error occured",ve)
+except ZeroDivisionError as zde:
+  print("Zero division error occured",zde)
+except Exception as e:
+  print("Exception occured",e)
+finally:
+  print("This is always called")
+
+VISHWA 3:40 PM
+class PasswordNotEqualException(Exception):
+  pass
+try:
+  password1 = input("Enter password")
+  password2 = input("Enter password again")
+  if password1 != password2:
+    raise PasswordNotEqualException("Passwords are not equal")
+except PasswordNotEqualException as e:
+  print(e)
+except Exception as e:
+  print("Exception occured",e)
+
+VISHWA 3:49 PM
+from typing import Optional
+def add(a,b=0)->Optional[int]:
+  if b==0:
+    return None
+  else:
+    return a+b
+add(3)
+add(3,4)
+
+VISHWA 3:55 PM
+def range_generator(n):
+  value=0
+  while value <= n:
+    yield value
+    value=value +1
+range_g=range_generator(3)
+next(range_g)
+range_g=range_generator(3)
+for i in range_g:
+  print(i)
+
+VISHWA 4:00 PM
+two_generator =(n*n for n in range(4))
+for i in two_generator:
+  print(i)
+
+Jain, Ronak 4:22 PM
+class account:
+  def __init__(self,id,name):
+    self.id=id
+    self.name=name
+
+  def displayP1(self):
+    print("p1 from Parent1 is",self.id)
+
+class saving(account):#Child1 extends from Parent1
+  def __init__(self,id,name,p,t,r):
+    account.__init__(self, id,name) #IMP
+    self.p=p
+    self.t=t  
+    self.r=r 
+
+  def calculate_interest(self):
+    return (self.p*self.t*self.r)*100
+
+
+class current(account):#Child1 extends from Parent1
+  def __init__(self,id,name,bal):
+    account.__init__(self, id,name) #IMP
+    self.bal=bal
+
+
+  def get_balance(self):
+    return self.bal
+
+
+s1=saving(1, "ronak",10,2,2)
+s1.calculate_interest()
+
+c1=current(1, "ronak", 1000)
+c1.get_balance()
+
+Avunuri, Srinivas 4:23 PM
+class account:
+  def __init__(self,account_id,customername):
+    self.account_id=account_id
+    self.customername=customername
+  def __str__(self):
+    return "account_id is {} , Customer name is {}".format(self.account_id,self.customername)
+
+from dataclasses import dataclass
+@dataclass
+class account:
+  Name:int
+  Account_id:str
+
+VISHWA 4:25 PM
+class Account:
+  def __init__(self,accountId,customerName):
+    self.accountId=accountId
+    self.customerName=customerName
+  def __str__(self):
+    return "Account ID {} CustomerName {}".format(self.accountId,self.customerName)
+class SavingAccount(Account):
+  def __init__(self,accountId,customerName,interestRate):
+    super().__init__(accountId,customerName)
+    self.interestRate=interestRate
+  def __str__(self):
+    return super().__str__()+ " Interest Rate {}".format(self.interestRate)
+class CurrentAccount(Account):
+  def __init__(self,accountId,customerName,balance):
+    super().__init__(accountId,customerName)
+    self.balance=balance
+  def __str__(self):
+    return super().__str__()+ " Balance {}".format(self.balance)
+4.45
+
+VISHWA 4:47 PM
+https://www.freepik.com/free-vector/board-game-snake-ladder_1430152.htm#fromView=keyword&page=1&position=0&uuid=9f438c8e-7393-4480-88cc-82362cde2ac6&query=Snake+Ladder
+
+Jain, Ronak 5:02 PM
+snakes = {
+    19: 3,
+    23: 16,
+    25: 20,
+    35: 28
+    
+}
+
+ladders = {
+    6: 18,
+    15: 27,
+    7: 19,
+}
+
+VISHWA 5:10 PM
+snakesAndLadder = {
+    19: 3,
+    23: 16,
+    25: 20,
+    35: 28,
+     6: 18,
+    15: 27,
+    7: 19
+}
+import random
+def play(score,endpoint=36):
+  while score < 36:
+    diceValue = random.randint(1,6)
+    tempScore = score + diceValue
+    if tempScore in snakesAndLadder.keys():
+      score = snakesAndLadder[tempScore]
+      if score > tempScore:
+        print("Ladder")
+      else:
+        print("Snake")
+        
+    elif tempScore > 36:
+      score = score
+    else:
+      score = tempScore
+    yield score
+for score in play(0):
+  print(score)
+snakesAndLadder = {
+    19: 3,
+    23: 16,
+    25: 20,
+    35: 28,
+     6: 18,
+    15: 27,
+    7: 19
+}
+
+VISHWA 5:24 PM
+class Position:
+  def __init__(self,value,type):
+    self.value=value
+class Snake(Position):
+  def __init__(self,start,end):
+    super().__init__(start,"snake")
+    self.end=end
+class Ladder(Position):
+  def __init__(self,start,end):
+    super().__init__(start,"ladder")
+    self.end=end
+
+snakesAndLadder = {
+    19: Snake(19,3),
+    23: Snake(23,16),
+    25: Snake(15,20),
+    35: Snake(35,28),
+     6: Ladder(6,18),
+    15: Ladder(15,27),
+    7: Ladder(7,19)
+}
+import random
+def play(score,endpoint=36):
+  while score < 36:
+    diceValue = random.randint(1,6)
+    tempScore = score + diceValue
+    if tempScore in snakesAndLadder.keys():
+      position = snakesAndLadder[tempScore]
+      if position.type == "snake":
+        score = position.end
+        print("Snake")
+      else:
+        score = position.end
+        print("Ladder")
+     
+        
+    elif tempScore > 36:
+      score = score
+    else:
+      score = tempScore
+    yield score
